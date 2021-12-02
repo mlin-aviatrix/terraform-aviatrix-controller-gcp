@@ -7,63 +7,38 @@ components created include:
 * One Aviatrix Controller Google Compute Instance (named aviatrix-controller)
 
 
-### Optional:
-This Terraform module will create any of these optional components if they are not provided.
-
-* An existing Google Compute Network with port 443 open for https
-* An existing Google Compute Image with the Aviatrix Controller image
-* A Google Compute Public IP Address
-
 ### Usage:
 
-To create an Aviatrix Controller from scratch:
+To create an Aviatrix Controller:
 
 ```hcl
 module "aviatrix-controller-build" {
-  source              = "github.com/AviatrixSysmtes/terraform-module-gcp.git//aviatrix-controller-build"
-  subnet_cidr         = "10.128.0.0/9"
+  source              = "mlin-aviatrix/controller-gcp//modules/aviatrix-controller-build"
+  network             = "<<< insert network name or self_link here >>>"
+  subnetwork          = "<<< insert subnetwork name or self_link here >>>"
+  public_ip           = "<<< insert public IP address here, ie. 1.1.1.1 >>>"
   incoming_ssl_cidrs  = ["<<< subnet CIDR >>>", "<<< CIDRs allowed for HTTPS access >>>"]
 }
 ```
 
-
-To create an Aviatrix Controller with existing components:
-```hcl
-module "aviatrix-controller-build" {
-  source              = "github.com/AviatrixSysmtes/terraform-module-gcp.git//aviatrix-controller-build"
-  network             = "<<< insert aviatrix-controller-network name or self_link here >>>"
-  subnetwork          = "<<< insert subnetwork name or self_link here  >>>"
-  image               = "<<< insert image name or self_link here >>>"
-  public_ip           = "<<< insert IP address here, ie. 1.1.1.1>>>"
-  incoming_ssl_cidrs  = ["<<< subnet CIDR >>>", "<<< CIDRs allowed for HTTPS access >>>"]
-}
-```
 
 ### Variables
 
 - **network**
 
-  The name or self_link of an existing Google Compute Network. If not set, a Google Compute Network and Subnetwork with cidr "10.128.0.0/9" will be created.
+  The name or self_link of an existing Google Compute Network.
 
 - **subnetwork**
 
-  The name or self_link of an existing Google Compute Subnetwork of the given **network**. **subnetwork** must be empty if **network** is not provided.
-
-- **subnet_cidr**
-
-  The CIDR for the Google Subnetwork that will be created. Must be empty if **network** is set. Default value is "10.128.0.0/9".
-
-- **image**
-
-  The name or self_link of an existing Google compute image with the Aviatrix Controller Image. If not set, a Google Compute Image with the Aviatrix Controller image will be created.
+  The name or self_link of an existing Google Compute Subnetwork of the given **network**.
 
 - **public_ip**
 
-  Existing public IP Address to assign to the Aviatrix Controller. If not set, a Google Compute public IP address will be created.
+  Existing public IP Address to assign to the Aviatrix Controller.
 
 - **controller_name**
 
-  Name of controller that will be launched. If not set, default name will be used.
+  Name of controller that will be launched. If not set, a default name will be used.
 
 - **service_account_email**
 
