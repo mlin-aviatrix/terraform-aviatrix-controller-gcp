@@ -31,7 +31,7 @@ To create an Aviatrix Controller with existing components:
 ```hcl
 module "aviatrix-controller-build" {
   source              = "github.com/AviatrixSysmtes/terraform-module-gcp.git//aviatrix-controller-build"
-  network             = "<<< insert network name or self_link here >>>"
+  network             = "<<< insert aviatrix-controller-network name or self_link here >>>"
   subnetwork          = "<<< insert subnetwork name or self_link here  >>>"
   image               = "<<< insert image name or self_link here >>>"
   public_ip           = "<<< insert IP address here, ie. 1.1.1.1>>>"
