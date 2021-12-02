@@ -13,7 +13,7 @@ To create an Aviatrix Controller:
 
 ```hcl
 module "aviatrix-controller-build" {
-  source              = "mlin-aviatrix/controller-gcp//modules/aviatrix-controller-build"
+  source              = "mlin-aviatrix/controller-gcp/aviatrix//modules/aviatrix-controller-build"
   network             = "<<< insert network name or self_link here >>>"
   subnetwork          = "<<< insert subnetwork name or self_link here >>>"
   public_ip           = "<<< insert public IP address here, ie. 1.1.1.1 >>>"
